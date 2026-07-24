@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RubricBuilder from "./RubricBuilder";
 import ResultCard from "./ResultCard";
 import { submitEvaluation } from "../api/evaluations";
+import { listRubricTemplates } from "../api/rubricTemplates";
 
 const initialCriteria = () => [
   { id: crypto.randomUUID(), name: "grammar", weight: 25, description: "Correct use of grammar and tenses" },
@@ -18,9 +19,38 @@ export default function EvaluationForm() {
   const [passingScore, setPassingScore] = useState(60);
   const [referenceId, setReferenceId] = useState("");
 
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplateId, setSelectedTemplateId] = useState("");
+
   const [status, setStatus] = useState("idle"); // idle | loading | error | success
   const [errorMessage, setErrorMessage] = useState("");
   const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    listRubricTemplates()
+      .then((data) => setTemplates(data || []))
+      .catch(() => setTemplates([]));
+  }, []);
+
+  const handleTemplateSelect = (templateId) => {
+    setSelectedTemplateId(templateId);
+
+    if (!templateId) return;
+
+    const template = templates.find((t) => String(t.id) === templateId);
+    if (!template) return;
+
+    setCriteria(
+      template.criteria.map((c) => ({
+        id: crypto.randomUUID(),
+        name: c.name,
+        weight: c.weight,
+        description: c.description || "",
+      }))
+    );
+    setMaxScore(template.max_score);
+    setPassingScore(template.passing_score);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -101,6 +131,22 @@ export default function EvaluationForm() {
             value={studentAnswer}
             onChange={(e) => setStudentAnswer(e.target.value)}
           />
+        </div>
+
+        <div className="field">
+          <label htmlFor="rubricTemplate">Use a saved rubric <span className="optional">(optional)</span></label>
+          <select
+            id="rubricTemplate"
+            value={selectedTemplateId}
+            onChange={(e) => handleTemplateSelect(e.target.value)}
+          >
+            <option value="">— Build rubric manually —</option>
+            {templates.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <RubricBuilder criteria={criteria} onChange={setCriteria} />

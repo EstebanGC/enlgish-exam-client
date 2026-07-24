@@ -631,3 +631,13 @@ button, input, textarea {
   color: var(--ink-soft);
   line-height: 1.55;
 }
+
+
+.field select {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  background: #fff;
+  font-family: inherit;
+}
