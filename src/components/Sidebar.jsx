@@ -1,7 +1,8 @@
 const NAV_ITEMS = [
   { key: "new", label: "New evaluation", enabled: true },
-  { key: "history", label: "History", enabled: false },
+  { key: "speaking", label: "Speaking", enabled: true },
   { key: "rubrics", label: "Rubric templates", enabled: true },
+  { key: "history", label: "History", enabled: false },
 ];
 
 export default function Sidebar({ activeView, onNavigate }) {

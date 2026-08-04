@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import EvaluationForm from "./components/EvaluationForm";
+import SpeakingEvaluationForm from "./components/SpeakingEvaluationForm";
 import RubricTemplatesView from "./components/RubricTemplatesView";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <Sidebar activeView={activeView} onNavigate={setActiveView} />
       <main className="app-main">
         {activeView === "new" && <EvaluationForm />}
+        {activeView === "speaking" && <SpeakingEvaluationForm />}
         {activeView === "rubrics" && <RubricTemplatesView />}
       </main>
     </div>
