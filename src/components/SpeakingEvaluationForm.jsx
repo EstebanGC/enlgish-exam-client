@@ -138,8 +138,8 @@ export default function SpeakingEvaluationForm() {
     const formData = new FormData();
     formData.append("audio", audioBlob, "response.webm");
     formData.append("exam_type", examType);
-    formData.append("question_text", questionText);
-    if (referenceId) formData.append("external_response_id", referenceId);
+    formData.append("question", questionText);
+    if (referenceId) formData.append("student_id", referenceId);
 
     if (examType === "CUSTOM") {
       formData.append("custom_rubric", JSON.stringify({
