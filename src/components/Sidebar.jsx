@@ -3,6 +3,7 @@ const NAV_ITEMS = [
   { key: "speaking", label: "Speaking", enabled: true },
   { key: "rubrics", label: "Rubric templates", enabled: true },
   { key: "history", label: "History", enabled: false },
+  { key: "authform", label: "Account", enabled: true }
 ];
 
 export default function Sidebar({ activeView, onNavigate }) {
