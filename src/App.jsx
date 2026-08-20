@@ -14,6 +14,8 @@ export default function App() {
         {activeView === "new" && <EvaluationForm />}
         {activeView === "speaking" && <SpeakingEvaluationForm />}
         {activeView === "rubrics" && <RubricTemplatesView />}
+        {activeView === "authform" && <Authform />}
+
       </main>
     </div>
   );
