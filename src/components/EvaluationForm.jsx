@@ -22,7 +22,7 @@ export default function EvaluationForm() {
   const [templates, setTemplates] = useState([]);
   const [selectedTemplateId, setSelectedTemplateId] = useState("");
 
-  const [status, setStatus] = useState("idle"); // idle | loading | error | success
+  const [status, setStatus] = useState("idle"); 
   const [errorMessage, setErrorMessage] = useState("");
   const [result, setResult] = useState(null);
 

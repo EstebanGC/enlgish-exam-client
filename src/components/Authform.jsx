@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, Loader2, UserPlus, LogIn, AlertCircle } from "lucide-react";
  
-// Adjust this to your API's base URL
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "https://english-exam-app-99zy.onrender.com";
  
 export default function AuthForm({ onAuthSuccess = (token, mode) => {} }) {
   const [mode, setMode] = useState("login"); // "login" | "register"
