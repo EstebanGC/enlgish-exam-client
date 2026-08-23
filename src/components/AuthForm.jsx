@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertCircle, Mail, Lock, User } from "lucide-react";
 
 const API_BASE_URL = "https://english-exam-app-99zy.onrender.com";
 
@@ -84,7 +84,6 @@ export default function AuthForm({ onAuthSuccess = (token, mode) => {} }) {
           throw new Error(data.detail || "Could not create account");
         }
 
-        // Registration successful -> log in automatically
         const loginRes = await fetch(`${API_BASE_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,17 +120,19 @@ export default function AuthForm({ onAuthSuccess = (token, mode) => {} }) {
 
   return (
     <div className="auth-view">
-      <header className="evaluation-view__header">
-        <p className="eyebrow">{isLogin ? "Grading desk" : "New account"}</p>
-        <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
-        <p className="evaluation-view__lede">
-          {isLogin
-            ? "Sign in to grade responses and track progress over time."
-            : "Set up an account to start grading and keep a record of every evaluation."}
-        </p>
-      </header>
-
       <div className="auth-card">
+        <div className="auth-card__mark" aria-hidden="true">✓</div>
+
+        <div className="auth-card__intro">
+          <p className="eyebrow">{isLogin ? "Grading desk" : "New account"}</p>
+          <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
+          <p className="auth-card__lede">
+            {isLogin
+              ? "Sign in to grade responses and track progress over time."
+              : "Set up an account to start grading and keep a record of every evaluation."}
+          </p>
+        </div>
+
         <div className="auth-tabs" role="tablist">
           <button
             type="button"
@@ -164,35 +165,42 @@ export default function AuthForm({ onAuthSuccess = (token, mode) => {} }) {
           {!isLogin && (
             <div className="field">
               <label htmlFor="authName">Full name</label>
-              <input
-                id="authName"
-                type="text"
-                value={form.name}
-                onChange={(e) => updateField("name", e.target.value)}
-                placeholder="Jane Doe"
-                className={fieldErrors.name ? "has-error" : ""}
-              />
+              <div className="auth-input-wrap">
+                <User className="auth-input-icon" size={16} />
+                <input
+                  id="authName"
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => updateField("name", e.target.value)}
+                  placeholder="Jane Doe"
+                  className={fieldErrors.name ? "has-error" : ""}
+                />
+              </div>
               {fieldErrors.name && <p className="field-error">{fieldErrors.name}</p>}
             </div>
           )}
 
           <div className="field">
             <label htmlFor="authEmail">Email address</label>
-            <input
-              id="authEmail"
-              type="email"
-              value={form.email}
-              onChange={(e) => updateField("email", e.target.value)}
-              placeholder="you@example.com"
-              autoComplete="email"
-              className={fieldErrors.email ? "has-error" : ""}
-            />
+            <div className="auth-input-wrap">
+              <Mail className="auth-input-icon" size={16} />
+              <input
+                id="authEmail"
+                type="email"
+                value={form.email}
+                onChange={(e) => updateField("email", e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+                className={fieldErrors.email ? "has-error" : ""}
+              />
+            </div>
             {fieldErrors.email && <p className="field-error">{fieldErrors.email}</p>}
           </div>
 
           <div className="field">
             <label htmlFor="authPassword">Password</label>
-            <div className="auth-password-wrap">
+            <div className="auth-input-wrap">
+              <Lock className="auth-input-icon" size={16} />
               <input
                 id="authPassword"
                 type={showPassword ? "text" : "password"}
@@ -220,14 +228,14 @@ export default function AuthForm({ onAuthSuccess = (token, mode) => {} }) {
             {isLogin ? "Log in" : "Sign up"}
           </button>
         </form>
-      </div>
 
-      <p className="auth-switch">
-        {isLogin ? "Don't have an account? " : "Already have an account? "}
-        <button type="button" className="auth-switch__link" onClick={() => switchMode(isLogin ? "register" : "login")}>
-          {isLogin ? "Sign up" : "Log in"}
-        </button>
-      </p>
+        <p className="auth-switch">
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
+          <button type="button" className="auth-switch__link" onClick={() => switchMode(isLogin ? "register" : "login")}>
+            {isLogin ? "Sign up" : "Log in"}
+          </button>
+        </p>
+      </div>
     </div>
   );
 }
