@@ -14,6 +14,7 @@ export default function App() {
       <Sidebar activeView={activeView} onNavigate={setActiveView} />
       <main className="app-main">
         {activeView === "new" && <EvaluationForm />}
+        
         {activeView === "speaking" && <SpeakingEvaluationForm />}
         {activeView === "rubrics" && <RubricTemplatesView />}
         {activeView === "history" && <HistoryView />}
