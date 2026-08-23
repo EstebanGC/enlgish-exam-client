@@ -1,13 +1,18 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
-
+ 
 export async function submitSpeakingEvaluation(formData) {
+  const token = localStorage.getItem("access_token");
+ 
   const response = await fetch(`${API_BASE_URL}/evaluate-speaking`, {
     method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: formData,
   });
-
+ 
   const data = await response.json().catch(() => null);
-
+ 
   if (!response.ok) {
     const message =
       (data && typeof data.detail === "string" && data.detail) ||
@@ -15,6 +20,7 @@ export async function submitSpeakingEvaluation(formData) {
       `Request failed with status ${response.status}`;
     throw new Error(message);
   }
-
+ 
   return data;
 }
+ 
