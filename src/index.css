@@ -757,3 +757,22 @@ button, input, textarea {
   font-style: italic;
   margin: 0 0 1rem;
 }
+
+.vocab-suggestion-row {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.vocab-used {
+  color: #e74c3c;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+.vocab-suggestion {
+  color: #2ecc71;
+  font-weight: 600;
+}
+.vocab-suggestion-reason {
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 4px;
+}

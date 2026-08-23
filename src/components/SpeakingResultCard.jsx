@@ -9,6 +9,7 @@ export default function SpeakingResultCard({ result }) {
   const [showTranscript, setShowTranscript] = useState(false);
   const breakdown = result.score_breakdown || [];
   const improvements = result.priority_improvements || [];
+  const vocabularySuggestions = result.vocabulary_suggestions || [];
 
   return (
     <div className="result-card speaking-result">
@@ -55,6 +56,23 @@ export default function SpeakingResultCard({ result }) {
         <div className="result-card__improvements">
           <h4>Priority improvements</h4>
           <ol>{improvements.map((imp, idx) => <li key={idx}>{imp}</li>)}</ol>
+        </div>
+      )}
+
+      {vocabularySuggestions.length > 0 && (
+        <div className="result-card__vocabulary">
+          <h4>Vocabulary upgrades</h4>
+          <div className="vocab-suggestions">
+            {vocabularySuggestions.map((v, idx) => (
+              <div key={idx} className="vocab-suggestion-row">
+                <p className="vocab-suggestion-swap">
+                  Instead of <span className="vocab-used">"{v.used}"</span>, try{" "}
+                  <span className="vocab-suggestion">"{v.suggestion}"</span>
+                </p>
+                {v.reason && <p className="vocab-suggestion-reason">{v.reason}</p>}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
