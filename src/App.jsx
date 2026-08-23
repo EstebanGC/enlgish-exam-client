@@ -1,10 +1,10 @@
 import { useState } from "react";
-import AuthForm from "./components/Authform";
+import AuthForm from "./components/AuthForm";
 import Sidebar from "./components/Sidebar";
 import EvaluationForm from "./components/EvaluationForm";
 import SpeakingEvaluationForm from "./components/SpeakingEvaluationForm";
 import RubricTemplatesView from "./components/RubricTemplatesView";
-
+import HistoryView from "./components/HistoryView";
 
 export default function App() {
   const [activeView, setActiveView] = useState("new");
@@ -16,8 +16,8 @@ export default function App() {
         {activeView === "new" && <EvaluationForm />}
         {activeView === "speaking" && <SpeakingEvaluationForm />}
         {activeView === "rubrics" && <RubricTemplatesView />}
+        {activeView === "history" && <HistoryView />}
         {activeView === "authform" && <AuthForm />}
-
       </main>
     </div>
   );
